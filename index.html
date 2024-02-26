@@ -63,15 +63,30 @@
         button:hover {
             background-color: #0056b3;
         }
+
+        .btng {
+            margin-top: 10px;
+
+        }
+
+        .datatb {
+            width: 80%;
+            margin: 0px auto;
+        }
     </style>
 </head>
 
 <body>
     <h1>Hp's Shuffle List</h1>
-    <input type="text" id="personName" placeholder="Enter person's name">
-    <button onclick="addPerson()">Add</button>
-    <button onclick="shuffleIds()">Shuffle IDs</button>
-    <button onclick="clearTable()">Clear All</button>
+    <div class="datatb">
+        <input type="text" id="personName" placeholder="Enter person's name">
+        <button onclick="addPerson()">Add</button>
+        <div class="btng">
+            <button onclick="shuffleIds()">Shuffle IDs</button>
+            <button onclick="clearTable()">Clear All</button>
+        </div>
+    </div>
+
     <table id="personTable">
         <thead>
             <tr>
@@ -83,7 +98,6 @@
             <!-- Table rows will be dynamically added here -->
         </tbody>
     </table>
-
     <script>
         // Initialize an empty array to store person entries
         let personEntries = [];
