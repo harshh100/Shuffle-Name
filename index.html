@@ -36,16 +36,6 @@
             border-radius: 5px;
         }
 
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
         /* Table styling */
         table {
             width: 80%;
@@ -66,7 +56,7 @@
         }
 
         /* Button hover effect */
-        button:hover {
+        .bdpart button:hover {
             background-color: #0056b3;
         }
 
@@ -83,39 +73,79 @@
             width: 80%;
             margin: 0px auto;
         }
+
+        .button {
+            --bg-color: #2d8cf0;
+            --main-color: #323232;
+            position: relative;
+            /* width: 150px;
+                height: 40px; */
+            margin: 0px 3px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            cursor: pointer;
+            align-items: center;
+            border: 2px solid var(--main-color);
+            box-shadow: 4px 4px var(--main-color);
+            background-color: var(--bg-color);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .button,
+        .button__text {
+            transition: all 0.3s;
+        }
+
+        .button .button__text {
+            transform: translateX(22px);
+            color: var(--font-color);
+            font-weight: 600;
+        }
+
+        .button:active {
+            transform: translate(3px, 3px);
+            box-shadow: 0px 0px var(--main-color);
+        }
     </style>
 </head>
 
 <!-- <hr /> -->
-<h1>Hp's Shuffle List</h1>
+<h1>Hp's Luck List</h1>
 <!-- <hr /> -->
 
-<div class="inputtb">
-    <input type="text" id="personName" placeholder="Enter person's name">
-    <button onclick="addPerson()">Add</button>
-    <button onclick="clearTable()">Clear All</button>
-</div>
-<table id="personTable">
-    <thead>
-        <tr>
-            <th>IDNumber</th>
-            <th>Name</th>
-        </tr>
-    </thead>
-    <tbody id="tableBody">
-        <!-- Table rows will be dynamically added here -->
-    </tbody>
-</table>
-<hr />
-<h4> -: Features :- </h4>
-<hr />
 
-<div class="inputtb">
-    <button onclick="shuffleIds()">Shuffle IDs</button>
-    <button onclick="selectRandomPerson()">Select Random Person</button>
-    <p id="randomPersonDisplay"></p>
-    <button onclick="matchPerson()">Match</button>
-    <input type="text" id="newPersonName" placeholder="Enter new person's name">
+<div class="bdpart">
+    <div class="inputtb">
+        <input type="text" id="personName" placeholder="Enter person's name">
+        <!-- <button onclick="addPerson()">Add</button> -->
+        <button onclick="addPerson()" class="button" type="button">Add</button>
+        <button onclick="clearTable()" class="button" type="button">Clear All</button>
+    </div>
+    <table id="personTable">
+        <thead>
+            <tr>
+                <th>IDNumber</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <!-- Table rows will be dynamically added here -->
+        </tbody>
+    </table>
+    <hr />
+    <h4> -: Features :- </h4>
+    <hr />
+
+    <div class="inputtb">
+        <button onclick="shuffleIds()" class="button" type="button">Shuffle IDs</button>
+        <button onclick="selectRandomPerson()" class="button" type="button">Select Random Person</button>
+        <p id="randomPersonDisplay"></p>
+        <button onclick="matchPerson()" class="button" type="button">Match</button>
+        <input type="text" id="newPersonName" placeholder="Enter new person's name">
+    </div>
 </div>
 <script>
     // Initialize an empty array to store person entries
@@ -206,7 +236,7 @@
 
         const randomIndex = Math.floor(Math.random() * personEntries.length);
         const randomPersonName = personEntries[randomIndex].name;
-        alert(`${newPersonName} Matched with -> ${randomPersonName}`);
+        alert(`"${newPersonName}" Matched with -> "${randomPersonName}"`);
     }
 
 </script>
