@@ -84,7 +84,7 @@
             font-size: 16px;
             background-color: #007bff;
             color: #fff;
-            padding: 10px 20px;
+            padding: 8px 20px;
             cursor: pointer;
             align-items: center;
             border: 2px solid var(--main-color);
@@ -129,6 +129,7 @@
             <tr>
                 <th>IDNumber</th>
                 <th>Name</th>
+                <th></th>
             </tr>
         </thead>
         <tbody id="tableBody">
@@ -201,11 +202,23 @@
     function updateTable() {
         const tableBody = document.getElementById("tableBody");
         tableBody.innerHTML = "";
-        personEntries.forEach((entry) => {
+        personEntries.forEach((entry, index) => {
             const newRow = tableBody.insertRow();
-            newRow.innerHTML = `<td>${entry.id}</td><td>${entry.name}</td>`;
+            newRow.innerHTML = `
+                    <td>${entry.id}</td>
+                    <td>${entry.name}</td>
+                    <td><button onclick="removeRow(this)" class="button" type="button">Remove</button></td>
+                `;
         });
     }
+
+    // Function to remove a specific row
+    function removeRow(row) {
+        const rowIndex = row.parentNode.parentNode.rowIndex;
+        personEntries.splice(rowIndex - 1, 1); // Adjust for header row
+        updateTable();
+    }
+
 
     // Load existing entries from local storage (if any)
     const storedEntries = localStorage.getItem("personEntries");
