@@ -1,4 +1,4 @@
-# Hp's Luck List
+# Hp's Luck List [ # Link : https://harshh100.github.io/Shuffle-Name/ ]
 
 Welcome to **Hp's Luck List**, a simple web app for managing a list of lucky people! This project allows you to add, shuffle, and select random people from your list.
 
@@ -27,6 +27,3 @@ Welcome to **Hp's Luck List**, a simple web app for managing a list of lucky peo
 
 Contributions are welcome! If you'd like to improve this project, feel free to submit a pull request.
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
