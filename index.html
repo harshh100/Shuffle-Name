@@ -36,6 +36,21 @@
             border-radius: 5px;
         }
 
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
         /* Table styling */
         table {
             width: 80%;
@@ -55,14 +70,9 @@
             background-color: #f2f2f2;
         }
 
-        /* Button hover effect */
-        .bdpart button:hover {
-            background-color: #0056b3;
-        }
-
-        .btng {
-            margin-top: 10px;
-
+        /* Additional styling */
+        .bdpart {
+            text-align: center;
         }
 
         hr {
@@ -71,15 +81,13 @@
 
         .inputtb {
             width: 80%;
-            margin: 0px auto;
+            margin: 0 auto;
         }
 
         .button {
             --bg-color: #2d8cf0;
             --main-color: #323232;
             position: relative;
-            /* width: 150px;
-                height: 40px; */
             margin: 0px 3px;
             font-size: 16px;
             background-color: #007bff;
@@ -89,7 +97,6 @@
             align-items: center;
             border: 2px solid var(--main-color);
             box-shadow: 4px 4px var(--main-color);
-            background-color: var(--bg-color);
             border-radius: 10px;
             overflow: hidden;
         }
@@ -112,15 +119,11 @@
     </style>
 </head>
 
-<!-- <hr /> -->
-<h1>Hp's Luck List</h1>
-<!-- <hr /> -->
-
+<h1>Welcome To Hp's Luck List</h1>
 
 <div class="bdpart">
     <div class="inputtb">
         <input type="text" id="personName" placeholder="Enter person's name">
-        <!-- <button onclick="addPerson()">Add</button> -->
         <button onclick="addPerson()" class="button" type="button">Add</button>
         <button onclick="clearTable()" class="button" type="button">Clear All</button>
     </div>
@@ -137,9 +140,7 @@
         </tbody>
     </table>
     <hr />
-    <h4> -: Features :- </h4>
-    <hr />
-
+    <h4>Features:</h4>
     <div class="inputtb">
         <button onclick="shuffleIds()" class="button" type="button">Shuffle IDs</button>
         <button onclick="selectRandomPerson()" class="button" type="button">Select Random Person</button>
@@ -148,6 +149,8 @@
         <input type="text" id="newPersonName" placeholder="Enter new person's name">
     </div>
 </div>
+
+
 <script>
     // Initialize an empty array to store person entries
     let personEntries = [];
@@ -177,6 +180,9 @@
         const idNumber = personEntries.length + 1;
         const entry = { id: idNumber, name: personName };
         personEntries.push(entry);
+
+        // Clear the input field
+        document.getElementById("personName").value = "";
 
         // Update the table
         updateTable();
