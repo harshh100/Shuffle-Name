@@ -23,7 +23,7 @@
 
         /* Input and button styling */
         input[type="text"] {
-            width: 80%;
+            width: 78%;
             padding: 10px;
             font-size: 16px;
             border: 1px solid #ccc;
@@ -69,107 +69,135 @@
 
         }
 
-        .datatb {
+        hr {
+            width: 80%;
+        }
+
+        .inputtb {
             width: 80%;
             margin: 0px auto;
         }
     </style>
 </head>
 
-<body>
-    <h1>Hp's Shuffle List</h1>
-    <div class="datatb">
-        <input type="text" id="personName" placeholder="Enter person's name">
-        <button onclick="addPerson()">Add</button>
-        <div class="btng">
-            <button onclick="shuffleIds()">Shuffle IDs</button>
-            <button onclick="clearTable()">Clear All</button>
-        </div>
-    </div>
+<h1>Hp's Shuffle List</h1>
+<div class="inputtb">
+    <input type="text" id="personName" placeholder="Enter person's name">
+    <button onclick="addPerson()">Add</button>
+    <button onclick="clearTable()">Clear All</button>
+</div>
+<table id="personTable">
+    <thead>
+        <tr>
+            <th>IDNumber</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+        <!-- Table rows will be dynamically added here -->
+    </tbody>
+</table>
+<hr />
+<div class="inputtb">
+    <button onclick="shuffleIds()">Shuffle IDs</button>
+    <button onclick="selectRandomPerson()">Select Random Person</button>
+    <p id="randomPersonDisplay"></p>
+    <button onclick="matchPerson()">Match</button>
+    <input type="text" id="newPersonName" placeholder="Enter new person's name">
+</div>
+<script>
+    // Initialize an empty array to store person entries
+    let personEntries = [];
 
-    <table id="personTable">
-        <thead>
-            <tr>
-                <th>IDNumber</th>
-                <th>Name</th>
-            </tr>
-        </thead>
-        <tbody id="tableBody">
-            <!-- Table rows will be dynamically added here -->
-        </tbody>
-    </table>
-    <script>
-        // Initialize an empty array to store person entries
-        let personEntries = [];
-
-        // Function to add a person to the table
-        function addPerson() {
-            const personName = document.getElementById("personName").value.trim();
-            if (personName === "") {
-                alert("Please enter a valid name.");
-                return;
-            }
-
-            // Check if the name is unique
-            const existingNames = personEntries.map(entry => entry.name.toLowerCase());
-            if (existingNames.includes(personName.toLowerCase())) {
-                alert("Name must be unique. This name already exists.");
-                return;
-            }
-
-            // Check if the input contains numbers
-            if (/\d/.test(personName)) {
-                alert("Numbers are not allowed in the name.");
-                return;
-            }
-
-            // Create a new entry with IDNumber equal to row number
-            const idNumber = personEntries.length + 1;
-            const entry = { id: idNumber, name: personName };
-            personEntries.push(entry);
-
-            // Update the table
-            updateTable();
+    // Function to add a person to the table
+    function addPerson() {
+        const personName = document.getElementById("personName").value.trim();
+        if (personName === "") {
+            alert("Please enter a valid name.");
+            return;
         }
 
-        // Function to shuffle the person names
-        function shuffleIds() {
-            // Shuffle the names only
-            const shuffledNames = personEntries.map(entry => entry.name).sort(() => Math.random() - 0.5);
-            personEntries.forEach((entry, index) => {
-                entry.name = shuffledNames[index];
-            });
-            updateTable();
+        // Check if the name is unique
+        const existingNames = personEntries.map(entry => entry.name.toLowerCase());
+        if (existingNames.includes(personName.toLowerCase())) {
+            alert("Name must be unique. This name already exists.");
+            return;
         }
 
-        // Function to clear all entries
-        function clearTable() {
-            personEntries = [];
-            updateTable();
+        // Check if the input contains numbers
+        if (/\d/.test(personName)) {
+            alert("Numbers are not allowed in the name.");
+            return;
         }
 
-        // Function to update the table
-        function updateTable() {
-            const tableBody = document.getElementById("tableBody");
-            tableBody.innerHTML = "";
-            personEntries.forEach((entry) => {
-                const newRow = tableBody.insertRow();
-                newRow.innerHTML = `<td>${entry.id}</td><td>${entry.name}</td>`;
-            });
-        }
+        // Create a new entry with IDNumber equal to row number
+        const idNumber = personEntries.length + 1;
+        const entry = { id: idNumber, name: personName };
+        personEntries.push(entry);
 
-        // Load existing entries from local storage (if any)
-        const storedEntries = localStorage.getItem("personEntries");
-        if (storedEntries) {
-            personEntries = JSON.parse(storedEntries);
-            updateTable();
-        }
+        // Update the table
+        updateTable();
+    }
 
-        // Save entries to local storage whenever there's a change
-        window.addEventListener("beforeunload", () => {
-            localStorage.setItem("personEntries", JSON.stringify(personEntries));
+    // Function to shuffle the person names
+    function shuffleIds() {
+        // Shuffle the names only
+        const shuffledNames = personEntries.map(entry => entry.name).sort(() => Math.random() - 0.5);
+        personEntries.forEach((entry, index) => {
+            entry.name = shuffledNames[index];
         });
-    </script>
+        updateTable();
+    }
+
+    // Function to clear all entries
+    function clearTable() {
+        personEntries = [];
+        updateTable();
+    }
+
+    // Function to update the table
+    function updateTable() {
+        const tableBody = document.getElementById("tableBody");
+        tableBody.innerHTML = "";
+        personEntries.forEach((entry) => {
+            const newRow = tableBody.insertRow();
+            newRow.innerHTML = `<td>${entry.id}</td><td>${entry.name}</td>`;
+        });
+    }
+
+    // Load existing entries from local storage (if any)
+    const storedEntries = localStorage.getItem("personEntries");
+    if (storedEntries) {
+        personEntries = JSON.parse(storedEntries);
+        updateTable();
+    }
+
+    // Save entries to local storage whenever there's a change
+    window.addEventListener("beforeunload", () => {
+        localStorage.setItem("personEntries", JSON.stringify(personEntries));
+    });
+
+    // Function to select a random person
+    function selectRandomPerson() {
+        const randomIndex = Math.floor(Math.random() * personEntries.length);
+        const randomPersonName = personEntries[randomIndex].name;
+        document.getElementById("randomPersonDisplay").textContent = `Random Person: ${randomPersonName}`;
+    }
+
+    // Function to match a new person's name
+    function matchPerson() {
+        const newPersonName = document.getElementById("newPersonName").value.trim();
+        if (newPersonName === "") {
+            alert("Please enter a valid name.");
+            return;
+        }
+
+        const randomIndex = Math.floor(Math.random() * personEntries.length);
+        const randomPersonName = personEntries[randomIndex].name;
+        alert(`Matched with: ${randomPersonName}`);
+    }
+
+</script>
 </body>
 
 </html>
